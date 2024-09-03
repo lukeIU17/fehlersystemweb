@@ -1,0 +1,98 @@
+.detail-container {
+    width: 1000px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+.detail-grid {
+    display: grid
+}
+
+.material-details {
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.material-details th, .material-details td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    background-color: #fff;
+}
+
+.history-grid {
+    display: inline-flex;
+    width: 50%;
+}
+
+.additions-grid {
+    display: inline-flex;
+    width: 50%;
+}
+
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.history-table th, .history-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    background-color: #fff;
+}
+
+.history-table input {
+    width: 95%;
+}
+
+.additions-table {
+    margin-left: 15px;
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.additions-table th, .additions-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    background-color: #fff;
+}
+
+.additions-table input {
+    width: 95%;
+}
+
+.comment {
+    width: 50%;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.back-button, .edit-button, .report-button {
+    width: 120px;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background-color: #66e06a;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-button:hover, .edit-button:hover, .report-button:hover {
+    background-color: #55c658;
+}
