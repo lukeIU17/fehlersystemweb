@@ -1,6 +1,19 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import './MaterialCreate.css';
+import { generateClient } from 'aws-amplify/data';
+
+/**
+ * @type {import('aws-amplify/data').Client<import('../amplify/data/resource').Schema>}
+ */
+const client = generateClient({
+    authMode: 'apiKey',
+});
+
+const fetchCourses = async () => {
+    const {data: courses} = await client.models.Course.list();
+    return courses;
+}
 
 const MaterialCreate = () => {
     const navigate = useNavigate();
@@ -19,6 +32,17 @@ const MaterialCreate = () => {
         navigate('/0100');
     };
 
+    let dropdownCourseData = fetchCourses();
+    const [dropdownCourse, setDropdownCourse] = useState([]);
+    useEffect(() => {
+        loadData();
+    }, []);
+
+    function loadData(){
+        setDropdownCourse(dropdownCourseData);
+    }
+
+
     return (
         <div className="tutor-form-container">
             <div className="form-grid">
@@ -35,8 +59,8 @@ const MaterialCreate = () => {
                     className="form-input"
                 >
                     <option value="">Verknüpfter Kurs</option>
-                    <option value="course1">Kurs 1</option>
-                    <option value="course2">Kurs 2</option>
+                    {/* eslint-disable-next-line react/jsx-key */}
+                    {dropdownCourse.map((item)=><option value="">{item}</option>)}
                 </select>
                 <select
                     value={category}
