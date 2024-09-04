@@ -3,40 +3,40 @@ import { a, defineData, type ClientSchema } from '@aws-amplify/backend';
 const schema = a.schema({
 
     Course: a.model({
-        courseID: a.id(),
-        courseName: a.string(),
+        courseID: a.id().required(),
+        courseName: a.string().required(),
         material: a.hasMany('Material', 'courseID')
     })
         .authorization(allow => [allow.publicApiKey()]),
 
     Material: a.model({
-        materialID: a.id(),
-        materialName: a.string(),
+        materialID: a.id().required(),
+        materialName: a.string().required(),
         materialType: a.enum(["script","repetorium", "probeklausur", "video", "scriptFragen", "kursFragen", "literaturHinweis"]),
-        materialDescription: a.string(),
-        courseID: a.id(),
+        materialDescription: a.string().required(),
+        courseID: a.id().required(),
         course: a.belongsTo('Course', 'courseID'),
         material: a.hasMany('Error', 'materialID'),
     })
         .authorization(allow => [allow.publicApiKey()]),
 
     Error: a.model({
-        errorID: a.id(),
-        errorName: a.string(),
+        errorID: a.id().required(),
+        errorName: a.string().required(),
         errorType: a.enum(["rechtschreibFehler", "grammatikalischerFehler", "inhaltlicherFehler", "veralteteInformation",
             "nichtVerfuegbarkeitVonVerlinktenMaterialien", "verbesserungsVorschlag"]),
-        description: a.string(),
+        description: a.string().required(),
         status: a.enum(["neu", "inBearbeitung", "wartenAufFeedback", "Geloest", "Abgelehnt"]),
-        materialID: a.id(),
+        materialID: a.id().required(),
         material: a.belongsTo('Material', 'materialID'),
         error: a.hasMany('Addition', 'errorID'),
     })
         .authorization(allow => [allow.publicApiKey()]),
 
     Addition: a.model({
-        description: a.string(),
+        description: a.string().required(),
         addtionType: a.enum(["Ergaenzung", "History"],),
-        errorID: a.id(),
+        errorID: a.id().required(),
         error: a.belongsTo('Error', 'errorID')
     })
         .authorization(allow => [allow.publicApiKey()]),
