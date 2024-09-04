@@ -12,7 +12,7 @@ const schema = a.schema({
     Material: a.model({
         materialID: a.id(),
         materialName: a.string(),
-        materialType: a.enum(["Script","Repetorium", "Probeklausur", "Video", "Script Fragen", "Kurs Fragen", "Literatur Hinweis"]),
+        materialType: a.enum(["script","repetorium", "probeklausur", "video", "scriptFragen", "kursFragen", "literaturHinweis"]),
         materialDescription: a.string(),
         courseID: a.id(),
         course: a.belongsTo('Course', 'courseID'),
@@ -23,10 +23,10 @@ const schema = a.schema({
     Error: a.model({
         errorID: a.id(),
         errorName: a.string(),
-        errorType: a.enum(["Rechtschreibfehler", "grammatikalischer Fehler", "inhaltlicher Fehler", "veraltete Information",
-            "nicht Verfügbarkeit von verlinkten Materialien", "verbesserungs Vorschlag"]),
+        errorType: a.enum(["rechtschreibFehler", "grammatikalischerFehler", "inhaltlicherFehler", "veralteteInformation",
+            "nichtVerfuegbarkeitVonVerlinktenMaterialien", "verbesserungsVorschlag"]),
         description: a.string(),
-        status: a.enum(["Neu", "in Bearbeitung", "warten auf Feedback", "Gelöst", "Abgelehnt"]),
+        status: a.enum(["neu", "inBearbeitung", "wartenAufFeedback", "Geloest", "Abgelehnt"]),
         materialID: a.id(),
         material: a.belongsTo('Material', 'materialID'),
         error: a.hasMany('Addition', 'errorID'),
@@ -35,7 +35,7 @@ const schema = a.schema({
 
     Addition: a.model({
         description: a.string(),
-        addtionType: a.enum(["Ergänzung", "History"],),
+        addtionType: a.enum(["Ergaenzung", "History"],),
         errorID: a.id(),
         error: a.belongsTo('Error', 'errorID')
     })
