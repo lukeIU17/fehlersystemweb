@@ -30,13 +30,23 @@ const MaterialCreate = () => {
     };
 
     const handleCreate = () => {
-        alert("Material gespeichert!");
+        handleCreateCourse();
         navigate('/0100');
     };
 
     useEffect(() => {
         fetchCourses();
     }, []);
+
+    function handleCreateCourse() {
+        client.models.Material.create({
+            materialID: fachlicheID,
+            materialName: materialName,
+            materialType: category,
+            materialDescription: description,
+            courseID: linkedCourse
+        })
+    }
 
 
     return (
@@ -63,13 +73,13 @@ const MaterialCreate = () => {
                     className="form-input"
                 >
                     <option value="">Kategorie</option>
-                    <option value="script">Script</option>
-                    <option value="repetorium">Repetorium</option>
-                    <option value="probeklausur">Probeklausur</option>
-                    <option value="video">Video</option>
-                    <option value="scriptFragen">Script Fragen</option>
-                    <option value="kursFragen">Kurs Fragen</option>
-                    <option value="literaturHinweis">Literatur Hinweis</option>
+                    <option value='script'>Script</option>
+                    <option value='repetorium'>Repetorium</option>
+                    <option value='probeklausur'>Probeklausur</option>
+                    <option value='video'>Video</option>
+                    <option value='scriptFragen'>Script Fragen</option>
+                    <option value='kursFragen'>Kurs Fragen</option>
+                    <option value='literaturHinweis'>Literatur Hinweis</option>
                 </select>
                 <input
                     type="text"
