@@ -14,6 +14,8 @@ const Home = () => {
             navigate('/0010');
         } else if (username === 'User2') {
             navigate('/0100');
+        } else if (username === 'Dev') {
+            navigate('/1000');
         } else {
             alert('Invalid username. Please use either "User1" or "User2" as username.');
         }
