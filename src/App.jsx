@@ -6,6 +6,7 @@ import MaterialCreate from "./MaterialCreate.jsx";
 import ErrorOverview from "./ErrorOverview.jsx";
 import ErrorReport from "./ErrorReport.jsx";
 import ErrorDetails from "./ErrorDetails.jsx";
+import DevCreateCourse from "./DevCreateCourse.tsx";
 
 const App = () => {
     return (
@@ -18,6 +19,7 @@ const App = () => {
                 <Route path="/0101" element={<ErrorOverview />} />
                 <Route path="/0110" element={<ErrorReport />} />
                 <Route path="/0111" element={<ErrorDetails />} />
+                <Route path="/1000" element={<DevCreateCourse />} />
             </Routes>
         </Router>
     );
