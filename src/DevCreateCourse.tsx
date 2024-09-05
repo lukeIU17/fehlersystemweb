@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import './ErrorReport.css';
 import {useNavigate} from "react-router-dom";
+import type { Schema } from "../amplify/data/resource";
 import { generateClient } from 'aws-amplify/data';
-import { type Schema } from '../amplify/data/resource'
 
 const client = generateClient<Schema>({
     authMode: "apiKey",
@@ -13,19 +13,11 @@ const ErrorReport = () => {
     const [courseNameLocal, setCourseNameLocal] = useState('');
     const [courseIDLocal, setCourseIDLocal] = useState('');
 
-    const promise = client.models.Course.create({
-        courseId: courseIDLocal,
-        courseName: courseNameLocal,
-    })
-    const createCourse = async () => {
-        try {
-            await promise;
-            alert("Kurs Gespeicert")
-        } catch (error) {
-            console.error(error);
-            client.cancel(promise)
-            alert("Ein Fehler ist aufgetreten");
-        }
+    function createCourse() {
+        client.models.Course.create({
+            courseID: courseIDLocal,
+            courseName: courseNameLocal
+        })
     }
 
     const handleBack = () => {

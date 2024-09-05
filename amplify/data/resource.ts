@@ -3,11 +3,11 @@ import { a, defineData, type ClientSchema } from '@aws-amplify/backend';
 const schema = a.schema({
 
     Course: a.model({
-        courseID: a.id().required(),
-        courseName: a.string().required(),
+        courseID: a.id(),
+        courseName: a.string(),
         material: a.hasMany('Material', 'courseID')
     })
-        .authorization(allow => [allow.publicApiKey()]),
+        .authorization((allow) => [allow.publicApiKey()]),
 
     Material: a.model({
         materialID: a.id().required(),
@@ -18,7 +18,7 @@ const schema = a.schema({
         course: a.belongsTo('Course', 'courseID'),
         material: a.hasMany('Error', 'materialID'),
     })
-        .authorization(allow => [allow.publicApiKey()]),
+        .authorization((allow) => [allow.publicApiKey()]),
 
     Error: a.model({
         errorID: a.id().required(),
@@ -31,7 +31,7 @@ const schema = a.schema({
         material: a.belongsTo('Material', 'materialID'),
         error: a.hasMany('Addition', 'errorID'),
     })
-        .authorization(allow => [allow.publicApiKey()]),
+        .authorization((allow) => [allow.publicApiKey()]),
 
     Addition: a.model({
         description: a.string().required(),
@@ -39,7 +39,7 @@ const schema = a.schema({
         errorID: a.id().required(),
         error: a.belongsTo('Error', 'errorID')
     })
-        .authorization(allow => [allow.publicApiKey()]),
+        .authorization((allow) => [allow.publicApiKey()]),
 });
 
 // Used for code completion / highlighting when making requests from frontend

@@ -6,7 +6,8 @@ import MaterialCreate from "./MaterialCreate.jsx";
 import ErrorOverview from "./ErrorOverview.jsx";
 import ErrorReport from "./ErrorReport.jsx";
 import ErrorDetails from "./ErrorDetails.jsx";
-import DevCreateCourse from "./DevCreateCourse.tsx";
+import DevCreateCourse from "./DevCreateCourse";
+
 
 const App = () => {
     return (
