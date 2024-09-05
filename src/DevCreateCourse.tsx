@@ -14,15 +14,17 @@ const ErrorReport = () => {
     const [courseIDLocal, setCourseIDLocal] = useState('');
 
     const promise = client.models.Course.create({
-        courseId: [courseIDLocal],
-        courseName: [courseNameLocal],
+        courseId: courseIDLocal,
+        courseName: courseNameLocal,
     })
     const createCourse = async () => {
         try {
             await promise;
+            alert("Kurs Gespeicert")
         } catch (error) {
             console.error(error);
             client.cancel(promise)
+            alert("Ein Fehler ist aufgetreten");
         }
     }
 
@@ -32,7 +34,6 @@ const ErrorReport = () => {
 
     const handleSave = () => {
         createCourse();
-        alert("Fehler gespeichert!");
         navigate('/0111');
     }
 
