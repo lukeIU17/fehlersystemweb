@@ -1,27 +1,29 @@
 import {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import './MaterialCreate.css';
+import type { Schema } from "../amplify/data/resource";
 import { generateClient } from 'aws-amplify/data';
 
-/**
- * @type {import('aws-amplify/data').Client<import('../amplify/data/resource').Schema>}
- */
-const client = generateClient({
+const client = generateClient<Schema>({
     authMode: 'apiKey',
 });
 
-const fetchCourses = async () => {
-    const {data: courses} = await client.models.Course.list();
-    return courses;
-}
+
 
 const MaterialCreate = () => {
+    type Course = Schema['Course']['type'];
     const navigate = useNavigate();
     const [materialName, setMaterialName] = useState('');
     const [linkedCourse, setLinkedCourse] = useState('');
     const [category, setCategory] = useState('');
     const [fachlicheID, setFachlicheID] = useState('');
     const [description, setDescription] = useState('');
+    const [courses, setCourses] = useState<Course[]>([]);
+
+    const fetchCourses = async () => {
+        const {data: courses, errors} = await client.models.Course.list();
+        setCourses(courses);
+    }
 
     const handleBack = () => {
         navigate(-1);
@@ -32,15 +34,9 @@ const MaterialCreate = () => {
         navigate('/0100');
     };
 
-    let dropdownCourseData = fetchCourses();
-    const [dropdownCourse, setDropdownCourse] = useState([]);
     useEffect(() => {
-        loadData();
+        fetchCourses();
     }, []);
-
-    function loadData(){
-        setDropdownCourse(dropdownCourseData);
-    }
 
 
     return (
@@ -59,8 +55,7 @@ const MaterialCreate = () => {
                     className="form-input"
                 >
                     <option value="">Verknüpfter Kurs</option>
-                    {/* eslint-disable-next-line react/jsx-key */}
-                    {dropdownCourse.map((item)=><option value="">{item}</option>)}
+                    {courses.map((course)=><option value={course.courseID}>{course.courseName}</option>)}
                 </select>
                 <select
                     value={category}
@@ -68,8 +63,13 @@ const MaterialCreate = () => {
                     className="form-input"
                 >
                     <option value="">Kategorie</option>
-                    <option value="category1">Kategorie 1</option>
-                    <option value="category2">Kategorie 2</option>
+                    <option value="script">Script</option>
+                    <option value="repetorium">Repetorium</option>
+                    <option value="probeklausur">Probeklausur</option>
+                    <option value="video">Video</option>
+                    <option value="scriptFragen">Script Fragen</option>
+                    <option value="kursFragen">Kurs Fragen</option>
+                    <option value="literaturHinweis">Literatur Hinweis</option>
                 </select>
                 <input
                     type="text"

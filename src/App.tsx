@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './Home.jsx';
 import MaterialButtons from './MaterialButtons.jsx';
 import MaterialOverview from "./MaterialOverview.jsx";
-import MaterialCreate from "./MaterialCreate.jsx";
+import MaterialCreate from "./MaterialCreate";
 import ErrorOverview from "./ErrorOverview.jsx";
 import ErrorReport from "./ErrorReport.jsx";
 import ErrorDetails from "./ErrorDetails.jsx";
