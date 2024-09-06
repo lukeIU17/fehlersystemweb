@@ -48,7 +48,8 @@ const ErrorOverview = () => {
     };
 
     const handleReportError = () => {
-        navigate('/0110');
+        const routeState = {id: materialID};
+        navigate('/0110', { state: routeState });
     }
 
     const handleShowError = () => {

@@ -4,7 +4,7 @@ import MaterialButtons from './MaterialButtons.jsx';
 import MaterialOverview from "./MaterialOverview";
 import MaterialCreate from "./MaterialCreate";
 import ErrorOverview from "./ErrorOverview";
-import ErrorReport from "./ErrorReport.jsx";
+import ErrorReport from "./ErrorReport";
 import ErrorDetails from "./ErrorDetails.jsx";
 import DevCreateCourse from "./DevCreateCourse";
 

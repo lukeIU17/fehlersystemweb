@@ -26,7 +26,7 @@ const schema = a.schema({
         errorType: a.enum(["rechtschreibFehler", "grammatikalischerFehler", "inhaltlicherFehler", "veralteteInformation",
             "nichtVerfuegbarkeitVonVerlinktenMaterialien", "verbesserungsVorschlag"]),
         description: a.string().required(),
-        status: a.enum(["neu", "inBearbeitung", "wartenAufFeedback", "Geloest", "Abgelehnt"]),
+        status: a.enum(["new", "reviewing", "pending", "solved", "declined"]),
         materialID: a.id().required(),
         material: a.belongsTo('Material', 'materialID'),
         error: a.hasMany('Addition', 'errorID'),
