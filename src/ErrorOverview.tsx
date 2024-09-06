@@ -1,15 +1,37 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import './ErrorOverview.css';
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useLocation} from "react-router-dom";
+import type { Schema } from "../amplify/data/resource";
+import { generateClient } from 'aws-amplify/data';
+
+const client = generateClient<Schema>({
+    authMode: 'apiKey',
+});
 
 const ErrorOverview = () => {
+    type Material = Schema['Material']['type'];
     const navigate = useNavigate();
+    const location = useLocation();
+    const [materialID, setMaterialID] = useState('');
     const [materialname, setMaterialname] = useState('');
     const [linkedcourses, setLinkedcourses] = useState('');
     const [category, setCategory] = useState('');
     const [description, setDescription] = useState('');
     const [selectedErrorType, setSelectedErrorType] = useState('');
+
+    const fetchMaterial = async () => {
+        setMaterialID(location.state.id);
+        const {data: materials, errors} = await client.models.Material.list();
+        let material = materials.find((material) => material.materialID === materialID);
+        setMaterialname(material.materialName);
+        setLinkedcourses(material.courseID);
+        setCategory(material.materialType);
+        setDescription(material.materialDescription);
+    }
+    useEffect(() => {
+        fetchMaterial();
+    }, []);
 
     const handleBack = () => {
         navigate(-1);
@@ -34,38 +56,10 @@ const ErrorOverview = () => {
                         <th>Beschreibung</th>
                     </tr>
                     <tr>
-                        <td><input
-                            type="materialname"
-                            id="materialname"
-                            name="materialname"
-                            placeholder="Materialname"
-                            value={materialname}
-                            onChange={(e) => setMaterialname(e.target.value)}
-                        /></td>
-                        <td><input
-                            type="linkedcourses"
-                            id="linkedcourses"
-                            name="linkedcourses"
-                            placeholder="Kurse"
-                            value={linkedcourses}
-                            onChange={(e) => setLinkedcourses(e.target.value)}
-                        /></td>
-                        <td><input
-                            type="category"
-                            id="category"
-                            name="category"
-                            placeholder="Kategorie"
-                            value={category}
-                            onChange={(e) => setCategory(e.target.value)}
-                        /></td>
-                        <td><input
-                            type="description"
-                            id="description"
-                            name="description"
-                            placeholder="Beschreibung"
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                        /></td>
+                        <td>{materialname}</td>
+                        <td>{linkedcourses}</td>
+                        <td>{category}</td>
+                        <td>{description}</td>
                     </tr>
                 </table>
             </div>

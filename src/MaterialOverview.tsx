@@ -14,6 +14,7 @@ const MaterialOverview = () => {
     type Material = Schema['Material']['type'];
     const navigate = useNavigate();
     const [selectedCourse, setSelectedCourse] = useState('');
+    const [selectedMaterial, setSelectedMaterial] = useState('');
     const [materialType, setMaterialType] = useState('');
     const [courses, setCourses] = useState<Course[]>([]);
     const [materials, setMaterials] = useState<Material[]>([]);
@@ -35,10 +36,15 @@ const MaterialOverview = () => {
         navigate(-1);
     };
 
+    const handleShow = () => {
+        const routeState = {id: selectedMaterial};
+        navigate('/0101', { state: routeState });
+    }
+
     const renderBody = () => {
         return materials.map((material) => {
             return <tr key={material.materialName}>
-                <td><Link to="/0101" className="material-link">{material.materialName}</Link></td>
+                <td>{material.materialName}</td>
                 <td>{material.courseID}</td>
                 <td>{material.materialType}</td>
                 <td>{material.materialDescription}</td>
@@ -48,14 +54,14 @@ const MaterialOverview = () => {
 
     return (
         <div className="overview-container">
-        <div className="filter-grid">
+            <div className="filter-grid">
                 <select
                     value={selectedCourse}
                     onChange={(e) => setSelectedCourse(e.target.value)}
                     className="filter-input"
                 >
                     <option value="">Kurs auswählen</option>
-                    {courses.map((course)=><option value={course.courseID}>{course.courseName}</option>)}
+                    {courses.map((course) => <option value={course.courseID}>{course.courseName}</option>)}
                 </select>
                 <select
                     value={materialType}
@@ -71,6 +77,14 @@ const MaterialOverview = () => {
                     <option value='kursFragen'>Kurs Fragen</option>
                     <option value='literaturHinweis'>Literatur Hinweis</option>
                 </select>
+                <select
+                    value={selectedMaterial}
+                    onChange={(e) => setSelectedMaterial(e.target.value)}
+                    className="filter-input"
+                >
+                    <option value="">Materialauswahl</option>
+                    {materials.map((material) => <option value={material.materialID}>{material.materialName}</option>)}
+                </select>
             </div>
             <table className="material-table">
                 <thead>
@@ -85,7 +99,10 @@ const MaterialOverview = () => {
                 {renderBody()}
                 </tbody>
             </table>
-            <button className="back-button" onClick={handleBack}>zurück</button>
+            <div className="button-group">
+                <button className="back-button" onClick={handleBack}>zurück</button>
+                <button className="back-button" onClick={handleShow}>anzeigen</button>
+            </div>
         </div>
     );
 };

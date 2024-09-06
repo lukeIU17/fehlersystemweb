@@ -3,7 +3,7 @@ import Home from './Home.jsx';
 import MaterialButtons from './MaterialButtons.jsx';
 import MaterialOverview from "./MaterialOverview";
 import MaterialCreate from "./MaterialCreate";
-import ErrorOverview from "./ErrorOverview.jsx";
+import ErrorOverview from "./ErrorOverview";
 import ErrorReport from "./ErrorReport.jsx";
 import ErrorDetails from "./ErrorDetails.jsx";
 import DevCreateCourse from "./DevCreateCourse";
