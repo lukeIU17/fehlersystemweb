@@ -131,7 +131,7 @@ const ErrorDetails = () => {
                 <table className="history-table">
                     <thead>
                     <tr>
-                        <th>Fehlerhistorie</th>
+                        <th onClick={fetchHistory}>Fehlerhistorie anklicken zum anzeigen</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -143,7 +143,7 @@ const ErrorDetails = () => {
                 <table className="additions-table">
                     <thead>
                     <tr>
-                        <th>Ergänzungen</th>
+                        <th onClick={fetchAdditions}>Ergänzungen anklicken zum anzeigen</th>
                     </tr>
                     </thead>
                     <tbody>

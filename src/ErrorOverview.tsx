@@ -22,7 +22,9 @@ const ErrorOverview = () => {
     const [errors, setErrors] = useState<Error[]>([]);
 
     const fetchErrors = async () => {
-        const {data: ers, errors} = await client.models.Error.list();
+        const {data: ers, errors} = await client.models.Error.list({
+            filter:{materialID:{eq: materialID}}
+        });
         setErrors(ers);
     }
     const fetchMaterial = async () => {
@@ -98,7 +100,7 @@ const ErrorOverview = () => {
             <table className="error-table">
                 <thead>
                 <tr>
-                    <th>Fehlername</th>
+                    <th onClick={fetchErrors}>Fehlername anklicken zum anzeigen</th>
                     <th>Fehlerkategorie</th>
                     <th>Fehlerbeschreibung</th>
                 </tr>
