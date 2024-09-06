@@ -1,5 +1,4 @@
 import {useEffect, useState} from 'react';
-import { Link } from 'react-router-dom';
 import {useNavigate} from "react-router-dom";
 import './MaterialOverview.css';
 import type { Schema } from "../amplify/data/resource";
@@ -82,7 +81,7 @@ const MaterialOverview = () => {
                     onChange={(e) => setSelectedMaterial(e.target.value)}
                     className="filter-input"
                 >
-                    <option value="">Materialauswahl</option>
+                    <option value="">Material auswählen</option>
                     {materials.map((material) => <option value={material.materialID}>{material.materialName}</option>)}
                 </select>
             </div>
