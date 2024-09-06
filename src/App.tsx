@@ -5,7 +5,7 @@ import MaterialOverview from "./MaterialOverview";
 import MaterialCreate from "./MaterialCreate";
 import ErrorOverview from "./ErrorOverview";
 import ErrorReport from "./ErrorReport";
-import ErrorDetails from "./ErrorDetails.jsx";
+import ErrorDetails from "./ErrorDetails";
 import DevCreateCourse from "./DevCreateCourse";
 
 
