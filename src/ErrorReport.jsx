@@ -30,9 +30,7 @@ const ErrorReport = () => {
                     <option value="">Fachliche ID</option>
                     <option value="id1">ID 1</option>
                     <option value="id2">ID 2</option>
-                    <option value="id2">ID 3</option>
-                    <option value="id2">ID 4</option>
-                    <option value="id2">ID 5</option>
+                    <option value="id3">ID 3</option>
                 </select>
                 <select
                     value={fehlerKategorie}
@@ -42,9 +40,7 @@ const ErrorReport = () => {
                     <option value="">Fehlerkategorie</option>
                     <option value="kategorie1">Kategorie 1</option>
                     <option value="kategorie2">Kategorie 2</option>
-                    <option value="kategorie2">Kategorie 3</option>
-                    <option value="kategorie2">Kategorie 4</option>
-                    <option value="kategorie2">Kategorie 5</option>
+                    <option value="kategorie3">Kategorie 3</option>
                 </select>
                 <input
                     type="text"

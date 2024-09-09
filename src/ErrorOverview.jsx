@@ -79,8 +79,6 @@ const ErrorOverview = () => {
                     <option value="type1">Typ 1</option>
                     <option value="type2">Typ 2</option>
                     <option value="type3">Typ 3</option>
-                    <option value="type4">Typ 4</option>
-                    <option value="type5">Typ 5</option>
                 </select>
             </div>
             <table className="error-table">

@@ -23,9 +23,7 @@ const MaterialOverview = () => {
                     <option value="">Kurs auswählen</option>
                     <option value="course1">Kurs 1</option>
                     <option value="course2">Kurs 2</option>
-                    <option value="course2">Kurs 3</option>
-                    <option value="course2">Kurs 4</option>
-                    <option value="course2">Kurs 5</option>
+                    <option value="course3">Kurs 3</option>
                 </select>
                 <select
                     value={materialType}
@@ -35,9 +33,7 @@ const MaterialOverview = () => {
                     <option value="">Materialtyp</option>
                     <option value="type1">Typ 1</option>
                     <option value="type2">Typ 2</option>
-                    <option value="type2">Typ 3</option>
-                    <option value="type2">Typ 4</option>
-                    <option value="type2">Typ 5</option>
+                    <option value="type3">Typ 3</option>
                 </select>
             </div>
             <table className="material-table">
