@@ -1,8 +1,4 @@
-# React + Vite
+Unser Korrekturmanagementsystem soll dazu beitragen, die Qualität der Lernmaterialien im Fernstudium der IU kontinuierlich zu verbessern und die Zusammenarbeit zwischen Studierenden und Tutoren zu optimieren.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Dieser Prototyp soll Tutoren erlauben gemeldete Fehler einzusehen und zu bearbeiten.
+Für Studenten und andere, die an der Qualitätssicherung beteiligt sind, soll die Möglichkeit bestehen, gefundene Fehler unkompliziert zu melden und dabei durch die Angaben eine grobe Einordnung des Fehlers zu ermöglichen.

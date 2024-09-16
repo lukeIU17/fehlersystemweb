@@ -10,14 +10,12 @@ const Home = () => {
     const handleLogin = (e) => {
         e.preventDefault();
 
-        if (username === 'User1') {
+        if (username === 'Tutor') {
             navigate('/0010');
-        } else if (username === 'User2') {
+        } else if (username === 'Student') {
             navigate('/0100');
-        } else if (username === 'Dev') {
-            navigate('/1000');
         } else {
-            alert('Invalid username. Please use either "User1" or "User2" as username.');
+            alert('Ungültiger Username. Bitte verwenden sie entweder "Tutor" oder "Student" als Username.');
         }
     };
 
