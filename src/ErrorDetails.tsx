@@ -57,6 +57,15 @@ const ErrorDetails = () => {
         });
         setErrorhistory(adds);
     }
+    const deleteError = async () => {
+        additions.map(async (addition: Addition) => {
+            const {data: deletedAddition, errors} = await client.models.Addition.delete({id: addition.id});
+        })
+        errorhistory.map(async (addition: Addition) => {
+            const {data: deletedAddition, errors} = await client.models.Addition.delete({id: addition.id});
+        })
+        const {data: deletedError, errors} = await client.models.Error.delete({id: error.id})
+    }
     useEffect(() => {
         fetchError();
         fetchAdditions();
@@ -81,6 +90,7 @@ const ErrorDetails = () => {
 
     const handleDelete = () => {
         if(confirm("Sind Sie sicher, dass sie den Fehler löschen wollen?")) {
+            deleteError();
             alert("Fehler gelöscht!");
             navigate('/0100');
         } else {
