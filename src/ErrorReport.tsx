@@ -1,46 +1,64 @@
 import { useState } from 'react';
 import './ErrorReport.css';
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
+import type { Schema } from "../amplify/data/resource";
+import { generateClient } from 'aws-amplify/data';
+
+const client = generateClient<Schema>({
+    authMode: 'apiKey',
+});
 
 const ErrorReport = () => {
     const navigate = useNavigate();
-    const [fachlicheId, setFachlicheId] = useState('');
+    const location = useLocation();
+    const [fehlerID, setFehlerID] = useState('');
     const [fehlerKategorie, setFehlerKategorie] = useState('');
     const [fehlerName, setFehlerName] = useState('');
     const [status, setStatus] = useState('');
     const [beschreibung, setBeschreibung] = useState('');
+
+    function createError() {
+        client.models.Error.create({
+            errorID: fehlerID,
+            errorName: fehlerName,
+            errorType: fehlerKategorie,
+            description: beschreibung,
+            status: status,
+            materialID: location.state.id,
+        })
+    }
 
     const handleBack = () => {
         navigate(-1);
     };
 
     const handleSave = () => {
-        alert("Fehler gespeichert!");
+        createError();
         navigate('/0111');
     }
 
     return (
         <div className="report-container">
             <div className="report-grid">
-                <select
-                    value={fachlicheId}
-                    onChange={(e) => setFachlicheId(e.target.value)}
+                <input
+                    type="text"
+                    value={fehlerID}
+                    onChange={(e) => setFehlerID(e.target.value)}
+                    placeholder="Fehler ID"
                     className="report-input"
-                >
-                    <option value="">Fachliche ID</option>
-                    <option value="id1">ID 1</option>
-                    <option value="id2">ID 2</option>
-                    <option value="id3">ID 3</option>
-                </select>
+                />
                 <select
                     value={fehlerKategorie}
                     onChange={(e) => setFehlerKategorie(e.target.value)}
                     className="report-input"
                 >
                     <option value="">Fehlerkategorie</option>
-                    <option value="kategorie1">Kategorie 1</option>
-                    <option value="kategorie2">Kategorie 2</option>
-                    <option value="kategorie3">Kategorie 3</option>
+                    <option value='rechtschreibFehler'>Rechtschreib Fehler</option>
+                    <option value='grammatikalischerFehler'>Grammatikalischer Fehler</option>
+                    <option value='inhaltlicherFehler'>inhaltlicher Fehler</option>
+                    <option value='veralteteInformation'>veraltete Information</option>
+                    <option value='nichtVerfuegbarkeitVonVerlinktenMaterialien'>nicht Verfuegbarkeit von verlinkten Materialien</option>
+                    <option value='verbesserungsVorschlag'>Verbesserungsvorschlag</option>
                 </select>
                 <input
                     type="text"
@@ -55,10 +73,7 @@ const ErrorReport = () => {
                     className="report-input"
                 >
                     <option value="">Status</option>
-                    <option value="new">Neu</option>
-                    <option value="reviewing">In Bearbeitung</option>
-                    <option value="pending">Wartet auf Feedback</option>
-                    <option value="declined">Abgelehnt</option>
+                    <option value='new'>Neu</option>
                 </select>
             </div>
             <textarea

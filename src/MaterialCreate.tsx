@@ -1,23 +1,53 @@
-import { useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import './MaterialCreate.css';
+import type { Schema } from "../amplify/data/resource";
+import { generateClient } from 'aws-amplify/data';
+
+const client = generateClient<Schema>({
+    authMode: 'apiKey',
+});
+
+
 
 const MaterialCreate = () => {
+    type Course = Schema['Course']['type'];
     const navigate = useNavigate();
     const [materialName, setMaterialName] = useState('');
     const [linkedCourse, setLinkedCourse] = useState('');
     const [category, setCategory] = useState('');
     const [fachlicheID, setFachlicheID] = useState('');
     const [description, setDescription] = useState('');
+    const [courses, setCourses] = useState<Course[]>([]);
+
+    const fetchCourses = async () => {
+        const {data: courses, errors} = await client.models.Course.list();
+        setCourses(courses);
+    }
 
     const handleBack = () => {
         navigate(-1);
     };
 
     const handleCreate = () => {
-        alert("Material gespeichert!");
+        handleCreateCourse();
         navigate('/0100');
     };
+
+    useEffect(() => {
+        fetchCourses();
+    }, []);
+
+    function handleCreateCourse() {
+        client.models.Material.create({
+            materialID: fachlicheID,
+            materialName: materialName,
+            materialType: category,
+            materialDescription: description,
+            courseID: linkedCourse
+        })
+    }
+
 
     return (
         <div className="tutor-form-container">
@@ -35,9 +65,7 @@ const MaterialCreate = () => {
                     className="form-input"
                 >
                     <option value="">Verknüpfter Kurs</option>
-                    <option value="course1">Kurs 1</option>
-                    <option value="course2">Kurs 2</option>
-                    <option value="course3">Kurs 3</option>
+                    {courses.map((course)=><option value={course.courseID}>{course.courseName}</option>)}
                 </select>
                 <select
                     value={category}
@@ -45,9 +73,13 @@ const MaterialCreate = () => {
                     className="form-input"
                 >
                     <option value="">Kategorie</option>
-                    <option value="category1">Kategorie 1</option>
-                    <option value="category2">Kategorie 2</option>
-                    <option value="category3">Kategorie 3</option>
+                    <option value='script'>Script</option>
+                    <option value='repetorium'>Repetorium</option>
+                    <option value='probeklausur'>Probeklausur</option>
+                    <option value='video'>Video</option>
+                    <option value='scriptFragen'>Script Fragen</option>
+                    <option value='kursFragen'>Kurs Fragen</option>
+                    <option value='literaturHinweis'>Literatur Hinweis</option>
                 </select>
                 <input
                     type="text"
