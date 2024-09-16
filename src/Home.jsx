@@ -14,6 +14,8 @@ const Home = () => {
             navigate('/0010');
         } else if (username === 'Student') {
             navigate('/0100');
+        } else if (username === 'Dev') {
+            navigate('/1000');
         } else {
             alert('Ungültiger Username. Bitte verwenden sie entweder "Tutor" oder "Student" als Username.');
         }
