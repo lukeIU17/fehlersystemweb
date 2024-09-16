@@ -11,6 +11,7 @@ const client = generateClient<Schema>({
 const ErrorOverview = () => {
     type Material = Schema['Material']['type'];
     type Error = Schema['Error']['type'];
+    type Addition = Schema['Addition']['type'];
     const navigate = useNavigate();
     const location = useLocation();
     const [materialID, setMaterialID] = useState('');
@@ -20,6 +21,8 @@ const ErrorOverview = () => {
     const [description, setDescription] = useState('');
     const [selectedError, setSelectedError] = useState('');
     const [errors, setErrors] = useState<Error[]>([]);
+    const [addition, setAddition] = useState<Addition[]>([]);
+    const [material, setMaterial] = useState<Material>();
 
     const fetchErrors = async () => {
         const {data: ers, errors} = await client.models.Error.list({
@@ -27,14 +30,36 @@ const ErrorOverview = () => {
         });
         setErrors(ers);
     }
+    const fetchAdditions = async (errorID) => {
+        const {data: adds, errors} = await client.models.Addition.list({
+            filter:{errorID: {eq: errorID}}
+        })
+        setAddition(adds);
+    }
     const fetchMaterial = async () => {
         const {data: materials, errors} = await client.models.Material.list();
         setMaterialID(location.state.id);
         let material = materials.find( async (material) => material.materialID === materialID);
+        setMaterial(material);
         setMaterialname(material.materialName);
         setLinkedcourses(material.courseID);
         setCategory(material.materialType);
         setDescription(material.materialDescription);
+    }
+    const deleteErrors = async () => {
+        errors.map(async (error: Error) => {
+            await fetchAdditions(error.errorID);
+            deleteAdditions();
+            await client.models.Error.delete({id: error.id});
+        })
+    }
+    const deleteAdditions = async () => {
+        addition.map(async (addition: Addition) => {
+            await client.models.Addition.delete({id: addition.id});
+        })
+    }
+    const deleteMaterial = async () => {
+        await client.models.Material.delete({id: material.id});
     }
     useEffect(() => {
         fetchMaterial();
@@ -57,6 +82,11 @@ const ErrorOverview = () => {
     const handleShowError = () => {
         const routeState = {id: selectedError};
         navigate('/0111', { state: routeState });
+    }
+    const handleDeleteMaterial = async () =>{
+        await deleteErrors();
+        await deleteMaterial();
+        navigate('/0100');
     }
     const renderBody = () => {
         return errors.map((error) => {
@@ -112,6 +142,7 @@ const ErrorOverview = () => {
             <div className="button-group">
                 <button className="back-button" onClick={handleBack}>zurück</button>
                 <button className="edit-button" onClick={handleEditMaterials}>Materialien bearbeiten</button>
+                <button className="edit-button" onClick={handleDeleteMaterial}> Material löschen</button>
                 <button className="report-button" onClick={handleShowError}>Fehler anzeigen</button>
                 <button className="report-button" onClick={handleReportError}>Fehler melden</button>
             </div>
